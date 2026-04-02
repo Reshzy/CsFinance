@@ -33,6 +33,30 @@ export default function Authenticated({
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('transactions.index')}
+                                    active={route().current('transactions.*')}
+                                >
+                                    Transactions
+                                </NavLink>
+                                <NavLink
+                                    href={route('chains.index')}
+                                    active={route().current('chains.*')}
+                                >
+                                    Chains
+                                </NavLink>
+                                <NavLink
+                                    href={route('portfolio.index')}
+                                    active={route().current('portfolio.*')}
+                                >
+                                    Portfolio
+                                </NavLink>
+                                <NavLink
+                                    href={route('analytics.index')}
+                                    active={route().current('analytics.*')}
+                                >
+                                    Analytics
+                                </NavLink>
                             </div>
                         </div>
 
@@ -136,6 +160,30 @@ export default function Authenticated({
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('transactions.index')}
+                            active={route().current('transactions.*')}
+                        >
+                            Transactions
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('chains.index')}
+                            active={route().current('chains.*')}
+                        >
+                            Chains
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('portfolio.index')}
+                            active={route().current('portfolio.*')}
+                        >
+                            Portfolio
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('analytics.index')}
+                            active={route().current('analytics.*')}
+                        >
+                            Analytics
                         </ResponsiveNavLink>
                     </div>
 
