@@ -1,3 +1,169 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+  OKLCH brand + semantic tokens — orange + teal system theme.
+  Switch via html[data-theme="light"|"dark"] (set by inline script + ThemeProvider).
+*/
+
+@layer base {
+    :root {
+        --font-body: 'Hind', Hind, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        --font-heading: 'Montserrat', Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+        /* Brand (shared) */
+        --brand-orange: oklch(0.72 0.19 55);
+        --brand-teal: oklch(0.68 0.14 195);
+        --brand-orange-muted: oklch(0.72 0.19 55 / 0.12);
+        --brand-teal-muted: oklch(0.68 0.14 195 / 0.14);
+
+        /* Light */
+        --color-bg: oklch(0.985 0.008 95);
+        --color-bg-elevated: oklch(1 0 0);
+        --color-bg-muted: oklch(0.96 0.015 200);
+        --color-card: oklch(1 0 0);
+        --color-border: oklch(0.9 0.02 230);
+        --color-text: oklch(0.22 0.03 260);
+        --color-text-muted: oklch(0.45 0.03 250);
+        --color-text-inverse: oklch(0.99 0.01 95);
+
+        --color-brand-primary: var(--brand-orange);
+        --color-brand-secondary: var(--brand-teal);
+
+        --color-positive: oklch(0.55 0.14 155);
+        --color-positive-bg: oklch(0.55 0.14 155 / 0.12);
+        --color-negative: oklch(0.52 0.2 25);
+        --color-negative-bg: oklch(0.52 0.2 25 / 0.1);
+
+        --color-cta-bg: var(--brand-orange);
+        --color-cta-text: oklch(0.99 0.01 95);
+        --color-cta-hover: oklch(0.66 0.19 55);
+
+        --color-accent-surface: oklch(0.97 0.04 195);
+        --color-chart-bar: oklch(0.35 0.08 260);
+
+        color-scheme: light;
+    }
+
+    [data-theme='dark'] {
+        --color-bg: oklch(0.16 0.025 260);
+        --color-bg-elevated: oklch(0.2 0.03 255);
+        --color-bg-muted: oklch(0.24 0.03 255);
+        --color-card: oklch(0.2 0.03 255);
+        --color-border: oklch(0.34 0.04 250);
+        --color-text: oklch(0.96 0.01 95);
+        --color-text-muted: oklch(0.68 0.02 220);
+        --color-text-inverse: oklch(0.16 0.03 260);
+
+        --color-brand-primary: oklch(0.78 0.17 58);
+        --color-brand-secondary: oklch(0.72 0.12 195);
+
+        --color-positive: oklch(0.72 0.14 160);
+        --color-positive-bg: oklch(0.72 0.14 160 / 0.15);
+        --color-negative: oklch(0.72 0.16 25);
+        --color-negative-bg: oklch(0.72 0.16 25 / 0.12);
+
+        --color-cta-bg: var(--brand-teal);
+        --color-cta-text: oklch(0.12 0.03 260);
+        --color-cta-hover: oklch(0.62 0.14 195);
+
+        --color-accent-surface: oklch(0.26 0.05 195);
+        --color-chart-bar: oklch(0.72 0.12 195);
+
+        color-scheme: dark;
+    }
+
+    html {
+        background-color: var(--color-bg);
+    }
+
+    body {
+        @apply font-sans antialiased;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading);
+    }
+}
+
+/* View Transitions API — diagonal wipe between theme snapshots */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.45s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+    animation-name: theme-diagonal-out;
+}
+
+::view-transition-new(root) {
+    animation-name: theme-diagonal-in;
+}
+
+@keyframes theme-diagonal-in {
+    from {
+        clip-path: polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%);
+    }
+    to {
+        clip-path: polygon(0% 100%, 0% 0%, 100% 0%, 100% 100%);
+    }
+}
+
+@keyframes theme-diagonal-out {
+    from {
+        clip-path: polygon(0% 100%, 0% 0%, 100% 0%, 100% 100%);
+    }
+    to {
+        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+    }
+}
+
+@layer components {
+    .theme-toggle-btn {
+        @apply rounded-md px-3 py-1.5 text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+        color: var(--color-text-muted);
+        background-color: transparent;
+        --tw-ring-color: var(--color-brand-secondary);
+        --tw-ring-offset-color: var(--color-bg);
+    }
+
+    .theme-toggle-btn[aria-pressed='true'] {
+        color: var(--color-cta-text);
+        background: linear-gradient(
+            135deg,
+            var(--color-brand-primary) 0%,
+            color-mix(in oklch, var(--color-brand-secondary) 85%, var(--color-brand-primary)) 100%
+        );
+    }
+
+    .theme-toggle-btn[aria-pressed='false']:hover {
+        background-color: var(--color-bg-muted);
+        color: var(--color-text);
+    }
+}
+
+/* Theme diagonal wipe (fixed selectors) */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.45s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+    animation-name: theme-diagonal-out;
+}
+
+::view-transition-new(root) {
+    animation-name: theme-diagonal-in;
+}

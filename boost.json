@@ -1,0 +1,15 @@
+{
+    "agents": [
+        "cursor"
+    ],
+    "skills": [
+        "laravel-best-practices",
+        "mcp-development",
+        "pest-testing",
+        "inertia-react-development",
+        "tailwindcss-development",
+        "frontend-design",
+        "laravel-inertia-react",
+        "php-pro"
+    ]
+}
