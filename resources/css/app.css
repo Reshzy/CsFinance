@@ -9,6 +9,9 @@
 
 @layer base {
     :root {
+        --font-body: 'Hind', Hind, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        --font-heading: 'Montserrat', Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
         /* Brand (shared) */
         --brand-orange: oklch(0.72 0.19 55);
         --brand-teal: oklch(0.68 0.14 195);
@@ -80,6 +83,15 @@
         background-color: var(--color-bg);
         color: var(--color-text);
     }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading);
+    }
 }
 
 /* View Transitions API — diagonal wipe between theme snapshots */
@@ -138,4 +150,20 @@
         background-color: var(--color-bg-muted);
         color: var(--color-text);
     }
+}
+
+/* Theme diagonal wipe (fixed selectors) */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.45s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+    animation-name: theme-diagonal-out;
+}
+
+::view-transition-new(root) {
+    animation-name: theme-diagonal-in;
 }

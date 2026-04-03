@@ -13,7 +13,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Hind', ...defaultTheme.fontFamily.sans],
+                display: ['Montserrat', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 app: {
